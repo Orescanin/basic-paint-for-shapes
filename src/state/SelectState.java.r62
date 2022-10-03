@@ -1,0 +1,54 @@
+package state;
+
+import java.awt.Color;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
+import model.CircleElement;
+import model.PageDevice;
+import view.MyPage;
+
+public class SelectState extends State{
+	
+	private MyPage mediator;
+	private PageDevice device;
+
+	public SelectState(MyPage mediator) {
+	
+		this.mediator=mediator;	
+	}
+	
+	public void mousePressed(MouseEvent e) {
+		 Point position = e.getPoint();
+		 if (e.getButton()==MouseEvent.BUTTON1){
+			 int check = mediator.getPageModel().getDeviceAtPosition(position);
+			 if (check!=-1){
+			 
+				 device=(PageDevice) mediator.getPageModel().getDeviceAt(check);
+				 if(mediator.getPageModel().getSelectedDevices().contains(device))
+				 {
+					 System.out.println("brise iz modela ");
+					 mediator.getPageModel().deletedSelectedDevice(device);
+					 device.setStrokeColor(Color.PINK);
+				 }
+				 else
+				 {
+					 System.out.println("dodaje u model");
+					 device.setStrokeColor(Color.BLUE);
+					 mediator.getPageModel().addSelectedDevice(device);
+					 
+				 }
+
+		 } 
+
+
+}
+
+}
+
+
+	
+	
+	
+}
